@@ -1,0 +1,85 @@
+[versions]
+compileSdk = "34"
+minSdk ="28"
+
+android-plugin = "8.4.0-alpha04"
+kotlin-plugin = "1.9.22"
+
+hilt = "2.50"
+hiltExt = "1.1.0"
+
+aboutlibraries = "10.10.0"
+
+compose = "1.6.0-rc02"
+compose-compiler = "1.5.8"
+
+core = "1.12.0"
+core-splashscreen = "1.1.0-alpha02"
+
+appcompat = "1.7.0-alpha03"
+
+composeBom = "2023.10.01"
+lifecycle = "2.7.0"
+material3 = "1.2.0-beta02"
+material-icons = "1.6.0-rc01"
+
+navigation = "2.7.6"
+
+datastore = "1.1.0-beta01"
+
+[libraries]
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
+core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core.splashscreen" }
+
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+
+lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" }
+lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "compose" }
+compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "compose" }
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+compose-material-icons = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "material.icons" }
+compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material.icons" }
+
+compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+
+datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore"}
+
+aboutlibraries = { group = "com.mikepenz", name = "aboutlibraries-core", version.ref = "aboutlibraries" }
+
+[bundles]
+core = [
+  "core-ktx",
+  "core-splashscreen",
+  "appcompat"
+]
+
+compose = [
+  "compose-runtime",
+  "compose-runtime-livedata",
+  "compose-foundation",
+  "compose-ui",
+  "compose-graphics",
+  "compose-material3",
+  "compose-material-icons",
+  "compose-material-icons-extended"
+]
+
+lifecycle = [
+  "lifecycle-runtime-compose",
+  "lifecycle-viewmodel-compose"
+]
+
+[plugins]
+android = { id = "com.android.application", version.ref = "android.plugin" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin.plugin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<resources>
+  <style name="Theme.AppSplashNight" parent="Theme.SplashScreen">
+    <item name="windowSplashScreenBackground">@android:color/system_neutral1_900</item>
+  </style>
+</resources>
