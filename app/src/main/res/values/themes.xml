@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.App" parent="Theme.AppCompat.DayNight.NoActionBar" />
+
+    <style name="Theme.AppSplash" parent="Theme.SplashScreen">
+
+        <item name="postSplashScreenTheme">@style/Theme.App</item>
+        <item name="windowSplashScreenAnimatedIcon">
+            @mipmap/ic_launcher
+        </item>
+    </style>
+</resources>
