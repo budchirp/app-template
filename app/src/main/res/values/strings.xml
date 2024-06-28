@@ -14,20 +14,20 @@
     <string name="en" translatable="false">English</string>
     <string name="tr" translatable="false">Türkçe</string>
 
-    <string name="dev">Developer</string>
-
     <string name="back">Back</string>
     <string name="apply">Apply</string>
     <string name="close">Close</string>
 
-    <string name="system">System</string>
-    <string name="dark">Dark</string>
-    <string name="light">Light</string>
+    <string name="home">Home</string>
 
     <string name="settings">Settings</string>
 
     <string name="general_settings">General Settings</string>
     <string name="general_settings_desc">General Settings</string>
+
+    <string name="system">System</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
 
     <string name="appearance">Appearance</string>
     <string name="appearance_desc">Theme, Material You</string>
@@ -41,6 +41,8 @@
 
     <string name="languages">Languages</string>
     <string name="languages_desc">Change the app language</string>
+
+    <string name="dev">Developer</string>
 
     <string name="about">About</string>
     <string name="about_desc">About this app</string>

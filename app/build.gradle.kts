@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "me.budchirp.app"
+    namespace = "me.budchirp.app.android"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "me.budchirp.app"
+        applicationId = "me.budchirp.app.android"
 
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.compileSdk.get().toInt()
@@ -78,17 +78,17 @@ android {
 dependencies {
     implementation(libs.bundles.core)
 
+    implementation(libs.bundles.hilt)
+    ksp(libs.hilt.compiler)
+
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
 
-    implementation(libs.bundles.lifecycle)
-
     implementation(libs.compose.navigation)
 
-    implementation(libs.datastore)
+    implementation(libs.bundles.lifecycle)
 
-    implementation(libs.bundles.hilt)
-    ksp(libs.hilt.compiler)
+    implementation(libs.datastore)
 
     implementation(libs.kotlinx.serialization.json)
 
