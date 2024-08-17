@@ -3,6 +3,7 @@
 plugins {
     alias(libs.plugins.android)
     alias(libs.plugins.kotlin)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -11,13 +12,22 @@ plugins {
 
 android {
     namespace = "me.budchirp.app.android"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.compileSdk
+            .get()
+            .toInt()
 
     defaultConfig {
         applicationId = "me.budchirp.app.android"
 
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.compileSdk.get().toInt()
+        minSdk =
+            libs.versions.minSdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.compileSdk
+                .get()
+                .toInt()
 
         versionCode = 1
         versionName = "1.0"
@@ -66,11 +76,12 @@ android {
 
     kotlinOptions { jvmTarget = "17" }
 
-    buildFeatures { compose = true; buildConfig = true }
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
 
     androidResources { generateLocaleConfig = true }
-
-    composeOptions { kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get() }
 
     packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
 }
