@@ -59,13 +59,13 @@ fun Layout(
     }
 
     val windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+    if (windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.EXPANDED) showMenu = false
+
     val scrollBehavior: TopAppBarScrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
             state = rememberTopAppBarState(),
             canScroll = { true },
         )
-
-    if (windowSizeClass.windowWidthSizeClass == WindowWidthSizeClass.EXPANDED) showMenu = false
 
     Scaffold(
         modifier =

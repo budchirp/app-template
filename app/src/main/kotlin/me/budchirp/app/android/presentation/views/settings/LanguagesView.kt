@@ -1,6 +1,5 @@
 package me.budchirp.app.android.presentation.views.settings
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +13,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.os.LocaleListCompat
 import me.budchirp.app.android.presentation.composables.ListItem
 
-@SuppressLint("DiscouragedApi")
 @Composable
 fun LanguagesView() {
     val context: Context = LocalContext.current

@@ -16,12 +16,12 @@ class HomeViewModel
     constructor(
         private val postService: PostService,
     ) : ViewModel() {
-        val postsFlow: MutableStateFlow<APIResult<List<PostModel>>?> =
+        var posts: MutableStateFlow<APIResult<List<PostModel>>?> =
             MutableStateFlow(value = null)
 
         fun fetchPosts() {
             viewModelScope.launch {
-                postsFlow.value = postService.getPosts()
+                posts.value = postService.getPosts()
             }
         }
 

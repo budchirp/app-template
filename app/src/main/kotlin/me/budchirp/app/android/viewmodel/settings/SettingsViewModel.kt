@@ -23,7 +23,7 @@ class SettingsViewModel
     constructor(
         private val settingsRepository: SettingsRepository,
     ) : ViewModel() {
-        private val _isReady: MutableStateFlow<Boolean> = MutableStateFlow(false)
+        private val _isReady: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
         val isReady: StateFlow<Boolean> = _isReady.asStateFlow()
 
         private val settingsFlow: Flow<Settings> = settingsRepository.settingsFlow

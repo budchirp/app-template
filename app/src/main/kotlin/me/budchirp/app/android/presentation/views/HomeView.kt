@@ -34,7 +34,7 @@ import me.budchirp.app.android.viewmodel.HomeViewModel
 @Composable
 fun HomeView(viewModel: HomeViewModel = hiltViewModel()) {
     val posts: APIResult<List<PostModel>>? by
-        viewModel.postsFlow.collectAsStateWithLifecycle(initialValue = null)
+        viewModel.posts.collectAsStateWithLifecycle(initialValue = null)
 
     when (posts) {
         is Success -> {

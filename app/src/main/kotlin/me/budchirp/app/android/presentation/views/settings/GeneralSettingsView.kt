@@ -11,10 +11,10 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -29,17 +29,17 @@ import me.budchirp.app.android.viewmodel.settings.SettingsViewModel
 fun GeneralSettingsView(settingsViewModel: SettingsViewModel = hiltViewModel()) {
     val settings: Settings by settingsViewModel.getSettings()
 
-    val isOpen: MutableState<Boolean> =
+    var isOpen: Boolean by
         remember {
-            mutableStateOf<Boolean>(false)
+            mutableStateOf<Boolean>(value = false)
         }
 
-    val inputValue: MutableState<String> =
+    var inputValue: String by
         remember {
-            mutableStateOf<String>(settings.exampleField)
+            mutableStateOf<String>(value = settings.exampleField)
         }
 
-    if (isOpen.value) {
+    if (isOpen) {
         AlertDialog(
             modifier =
                 Modifier
@@ -48,28 +48,28 @@ fun GeneralSettingsView(settingsViewModel: SettingsViewModel = hiltViewModel()) 
             title = {
                 Text(text = settings.exampleField)
             },
-            onDismissRequest = { isOpen.value = false },
+            onDismissRequest = { isOpen = false },
             confirmButton = {
                 Button(onClick = {
                     settingsViewModel.updateSettings(
-                        settings = NullableSettings(exampleField = inputValue.value),
+                        settings = NullableSettings(exampleField = inputValue),
                     )
 
-                    isOpen.value = false
+                    isOpen = false
                 }) {
                     Text(text = stringResource(id = R.string.save))
                 }
             },
             dismissButton = {
-                FilledTonalButton(onClick = { isOpen.value = false }) {
+                FilledTonalButton(onClick = { isOpen = false }) {
                     Text(text = stringResource(id = R.string.close))
                 }
             },
             text = {
                 OutlinedTextField(
-                    value = inputValue.value,
+                    value = inputValue,
                     onValueChange = { value: String ->
-                        inputValue.value = value
+                        inputValue = value
                     },
                 )
             },
@@ -87,7 +87,7 @@ fun GeneralSettingsView(settingsViewModel: SettingsViewModel = hiltViewModel()) 
                 title = "Example field",
                 description = "Example field that opens a dialog",
                 onClick = {
-                    isOpen.value = true
+                    isOpen = true
                 },
             )
         }

@@ -2,7 +2,6 @@ package me.budchirp.app.android.presentation.views.settings.about
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -83,12 +82,6 @@ fun AppCard() {
             contract = ActivityResultContracts.StartActivityForResult(),
         ) {}
 
-    val version: String =
-        context.packageManager.getPackageInfo(context.packageName, 0)?.versionName ?: "1.0.0"
-    val icon: Drawable = context.packageManager.getApplicationIcon(context.packageName)
-
-    val appGithubUrl: String = stringResource(id = R.string.app_github_url)
-
     Card(
         modifier =
             Modifier
@@ -100,7 +93,7 @@ fun AppCard() {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             AsyncImage(
-                model = icon,
+                model = context.packageManager.getApplicationIcon(context.packageName),
                 contentDescription = null,
                 modifier =
                     Modifier
@@ -115,7 +108,12 @@ fun AppCard() {
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Text(
-                    text = version,
+                    text =
+                        context.packageManager
+                            .getPackageInfo(
+                                context.packageName,
+                                0,
+                            )?.versionName ?: "1.0.0",
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
@@ -123,6 +121,7 @@ fun AppCard() {
 
         HorizontalDivider()
 
+        val appGithubUrl: String = stringResource(id = R.string.app_github_url)
         ListItem(
             title = stringResource(id = R.string.about_view_on, "Github"),
             description =
@@ -147,10 +146,6 @@ fun DevCard() {
             contract = ActivityResultContracts.StartActivityForResult(),
         ) {}
 
-    val devWebsiteUrl: String = stringResource(id = R.string.dev_website_url)
-    val devGithubUrl: String = stringResource(id = R.string.dev_github_url)
-    val devXUrl: String = stringResource(id = R.string.dev_x_url)
-
     Card(
         modifier =
             Modifier
@@ -169,6 +164,7 @@ fun DevCard() {
 
         HorizontalDivider()
 
+        val devWebsiteUrl: String = stringResource(id = R.string.dev_website_url)
         ListItem(
             title = stringResource(id = R.string.dev_name),
             description = "@" + stringResource(id = R.string.dev_username),
@@ -180,6 +176,7 @@ fun DevCard() {
             },
         )
 
+        val devGithubUrl: String = stringResource(id = R.string.dev_github_url)
         ListItem(
             title = stringResource(id = R.string.about_follow_on, "Github"),
             description =
@@ -195,6 +192,7 @@ fun DevCard() {
             },
         )
 
+        val devXUrl: String = stringResource(id = R.string.dev_x_url)
         ListItem(
             title = stringResource(id = R.string.about_follow_on, "X"),
             description =

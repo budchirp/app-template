@@ -15,7 +15,7 @@ import me.budchirp.app.android.presentation.motion.slideOut
 import me.budchirp.app.android.presentation.navigation.allRoutes
 import me.budchirp.app.android.presentation.navigation.findByDestination
 
-const val initialOffset = 0.10f
+val initialOffset: Float = 0.10f
 
 fun NavGraphBuilder.animatedComposableBuilder(
     navController: NavHostController,
