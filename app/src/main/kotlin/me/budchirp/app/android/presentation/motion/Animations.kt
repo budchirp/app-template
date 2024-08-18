@@ -15,7 +15,7 @@ import androidx.compose.animation.slideOutVertically
 import me.budchirp.app.android.presentation.composables.initialOffset
 
 object MotionConstants {
-    const val DefaultMotionDuration: Int = 300
+    val defaultMotionDuration: Int = 400
 }
 
 private val Int.ForOutgoing: Int
@@ -26,7 +26,7 @@ private val Int.ForIncoming: Int
 
 fun slideIn(
     initialOffsetX: (fullWidth: Int) -> Int = { (it * initialOffset).toInt() },
-    durationMillis: Int = MotionConstants.DefaultMotionDuration,
+    durationMillis: Int = MotionConstants.defaultMotionDuration,
 ): EnterTransition =
     slideInHorizontally(
         animationSpec = tween(durationMillis = durationMillis, easing = FastOutSlowInEasing),
@@ -43,7 +43,7 @@ fun slideIn(
 
 fun slideOut(
     targetOffsetX: (fullWidth: Int) -> Int = { -(it * initialOffset).toInt() },
-    durationMillis: Int = MotionConstants.DefaultMotionDuration,
+    durationMillis: Int = MotionConstants.defaultMotionDuration,
 ): ExitTransition =
     slideOutHorizontally(
         animationSpec = tween(durationMillis = durationMillis, easing = FastOutSlowInEasing),
@@ -60,7 +60,7 @@ fun slideOut(
 
 fun slideInY(
     initialOffsetY: (fullHeight: Int) -> Int = { -(it * initialOffset).toInt() },
-    durationMillis: Int = MotionConstants.DefaultMotionDuration,
+    durationMillis: Int = MotionConstants.defaultMotionDuration,
     delayMillis: Int = 0,
 ): EnterTransition =
     slideInVertically(
@@ -78,7 +78,7 @@ fun slideInY(
 
 fun slideOutY(
     targetOffsetY: (fullHeight: Int) -> Int = { (it * initialOffset).toInt() },
-    durationMillis: Int = MotionConstants.DefaultMotionDuration,
+    durationMillis: Int = MotionConstants.defaultMotionDuration,
     delayMillis: Int = 0,
 ): ExitTransition =
     slideOutVertically(
