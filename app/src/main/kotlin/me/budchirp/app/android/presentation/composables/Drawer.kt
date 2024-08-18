@@ -1,7 +1,5 @@
 package me.budchirp.app.android.presentation.composables
 
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
@@ -22,10 +22,13 @@ import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
@@ -36,9 +39,65 @@ import androidx.window.core.layout.WindowWidthSizeClass
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.budchirp.app.android.R
-import me.budchirp.app.android.presentation.motion.MotionConstants
 import me.budchirp.app.android.presentation.navigation.Route
 import me.budchirp.app.android.presentation.navigation.mainRoutes
+import me.budchirp.app.android.presentation.utils.getSystemRoundedCorners
+
+@Composable
+fun Drawer(
+    navController: NavController,
+    drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
+    drawerScope: CoroutineScope = rememberCoroutineScope(),
+    content: @Composable (DrawerState, CoroutineScope) -> Unit,
+) {
+    val windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+
+    when (windowSizeClass.windowWidthSizeClass) {
+        WindowWidthSizeClass.COMPACT, WindowWidthSizeClass.MEDIUM ->
+            ModalNavigationDrawer(
+                drawerContent = {
+                    ModalDrawerSheet(
+                        modifier =
+                            Modifier
+                                .fillMaxHeight()
+                                .fillMaxWidth(fraction = 0.85f)
+                                .clip(shape = RoundedCornerShape(size = getSystemRoundedCorners())),
+                        drawerState = drawerState,
+                    ) {
+                        DrawerContent(
+                            navController = navController,
+                            drawerState = drawerState,
+                            drawerScope = drawerScope,
+                        )
+                    }
+                },
+                gesturesEnabled = true,
+                drawerState = drawerState,
+            ) {
+                content(drawerState, drawerScope)
+            }
+
+        WindowWidthSizeClass.EXPANDED ->
+            PermanentNavigationDrawer(drawerContent = {
+                PermanentDrawerSheet(
+                    modifier =
+                        Modifier.fillMaxHeight().fillMaxWidth(fraction = 0.35f).clip(
+                            shape =
+                                RoundedCornerShape(
+                                    size = 0.dp,
+                                ),
+                        ),
+                    drawerContainerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                ) {
+                    DrawerContent(navController = navController)
+                }
+            }) {
+                content(drawerState, drawerScope)
+            }
+
+        else -> content(drawerState, drawerScope)
+    }
+}
 
 @Composable
 fun DrawerContent(
@@ -110,59 +169,9 @@ fun DrawerContent(
                 },
                 label = { Text(text = stringResource(id = route.title)) },
                 icon = {
-                    Crossfade(
-                        targetState = selected,
-                        animationSpec =
-                            tween(
-                                durationMillis = MotionConstants.DefaultMotionDuration,
-                            ),
-                    ) { selected: Boolean ->
-                        Icon(icon = if (selected) route.icon else route.unselectedIcon)
-                    }
+                    Icon(icon = if (selected) route.icon else route.unselectedIcon)
                 },
             )
         }
-    }
-}
-
-@Composable
-fun Drawer(
-    navController: NavController,
-    drawerState: DrawerState,
-    drawerScope: CoroutineScope,
-    content: @Composable () -> Unit,
-) {
-    val windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
-
-    when (windowSizeClass.windowWidthSizeClass) {
-        WindowWidthSizeClass.COMPACT, WindowWidthSizeClass.MEDIUM ->
-            ModalNavigationDrawer(
-                drawerContent = {
-                    ModalDrawerSheet(drawerState = drawerState) {
-                        DrawerContent(
-                            navController = navController,
-                            drawerState = drawerState,
-                            drawerScope = drawerScope,
-                        )
-                    }
-                },
-                gesturesEnabled = true,
-                drawerState = drawerState,
-            ) {
-                content()
-            }
-
-        WindowWidthSizeClass.EXPANDED ->
-            PermanentNavigationDrawer(drawerContent = {
-                PermanentDrawerSheet(
-                    drawerContainerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-                ) {
-                    DrawerContent(navController = navController)
-                }
-            }) {
-                content()
-            }
-
-        else -> content()
     }
 }
