@@ -33,7 +33,7 @@ fun ListItem(
                     if (enabled &&
                         onClick != null
                     ) {
-                        Modifier.clickable { onClick.invoke() }
+                        Modifier.clickable { onClick() }
                     } else {
                         Modifier
                     },

@@ -37,9 +37,7 @@ fun AppearanceView(navController: NavHostController) {
                             },
                     ),
                 onClick = {
-                    if (route.destination != Route.MaterialYou.destination) {
-                        navController.navigate(route = route.destination)
-                    }
+                    navController.navigate(route = route.destination)
                 },
                 firstItem = {
                     Icon(
