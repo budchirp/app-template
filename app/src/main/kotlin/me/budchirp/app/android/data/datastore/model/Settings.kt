@@ -1,6 +1,6 @@
 package me.budchirp.app.android.data.datastore.model
 
-import me.budchirp.app.android.presentation.theme.Theme
+import me.budchirp.app.android.ui.theme.Theme
 
 data class Settings(
     val exampleField: String,

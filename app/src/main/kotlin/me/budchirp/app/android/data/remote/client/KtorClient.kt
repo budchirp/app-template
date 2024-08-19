@@ -10,33 +10,38 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
-import javax.inject.Inject
 import kotlinx.serialization.json.Json
 import me.budchirp.app.android.BuildConfig
+import javax.inject.Inject
 
-class KtorClient @Inject constructor() {
-    private val client = HttpClient(OkHttp) {
-        if (BuildConfig.DEBUG) {
-            install(Logging) {
-                logger = Logger.DEFAULT
-                level = LogLevel.HEADERS
-                sanitizeHeader { header -> header == HttpHeaders.Authorization }
-                logger = object : Logger {
-                    override fun log(message: String) {
-                        Log.i("KtorClient", message)
+class KtorClient
+    @Inject
+    constructor() {
+        private val client: HttpClient =
+            HttpClient(OkHttp) {
+                if (BuildConfig.DEBUG) {
+                    install(Logging) {
+                        logger = Logger.DEFAULT
+                        level = LogLevel.HEADERS
+                        sanitizeHeader { header -> header == HttpHeaders.Authorization }
+                        logger =
+                            object : Logger {
+                                override fun log(message: String) {
+                                    Log.i("KtorClient", message)
+                                }
+                            }
                     }
                 }
-            }
-        }
 
-        install(ContentNegotiation) {
-            json(
-                json = Json {
-                    ignoreUnknownKeys = true
+                install(ContentNegotiation) {
+                    json(
+                        json =
+                            Json {
+                                ignoreUnknownKeys = true
+                            },
+                    )
                 }
-            )
-        }
-    }
+            }
 
-    fun getClient(): HttpClient = client
-}
+        fun getClient(): HttpClient = client
+    }

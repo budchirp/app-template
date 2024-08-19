@@ -6,20 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.DrawerState
-import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import me.budchirp.app.android.presentation.composables.AppLayout
-import me.budchirp.app.android.presentation.navigation.AppNavGraph
-import me.budchirp.app.android.presentation.theme.AppTheme
-import me.budchirp.app.android.viewmodel.settings.SettingsViewModel
+import me.budchirp.app.android.ui.composables.AppLayout
+import me.budchirp.app.android.ui.composition.ProvideDrawerState
+import me.budchirp.app.android.ui.composition.ProvideNavController
+import me.budchirp.app.android.ui.navigation.AppNavGraph
+import me.budchirp.app.android.ui.theme.AppTheme
+import me.budchirp.app.android.viewmodel.SettingsViewModel
 
 @AndroidEntryPoint
 class AppActivity : AppCompatActivity() {
@@ -34,8 +30,6 @@ class AppActivity : AppCompatActivity() {
             }
         }
 
-        enableEdgeToEdge()
-
         ViewCompat.setOnApplyWindowInsetsListener(
             window.decorView,
         ) { view: View, insets: WindowInsetsCompat ->
@@ -43,22 +37,15 @@ class AppActivity : AppCompatActivity() {
             insets
         }
 
+        enableEdgeToEdge()
+
         setContent {
-            val navController: NavHostController = rememberNavController()
-
-            val isReady: Boolean by
-                settingsViewModel.isReady.collectAsStateWithLifecycle()
-
             AppTheme {
-                if (isReady) {
-                    AppLayout(
-                        navController = navController,
-                    ) { drawerState: DrawerState, drawerScope: CoroutineScope ->
-                        AppNavGraph(
-                            navController = navController,
-                            drawerState = drawerState,
-                            drawerScope = drawerScope,
-                        )
+                ProvideNavController {
+                    ProvideDrawerState {
+                        AppLayout {
+                            AppNavGraph()
+                        }
                     }
                 }
             }

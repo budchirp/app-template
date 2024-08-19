@@ -15,13 +15,15 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import me.budchirp.app.android.data.datastore.model.NullableSettings
 import me.budchirp.app.android.data.datastore.model.Settings
-import me.budchirp.app.android.presentation.theme.Theme
+import me.budchirp.app.android.ui.theme.Theme
 import java.io.IOException
 import javax.inject.Inject
 
-private val Context.settingsDataStore by preferencesDataStore(name = "settings")
+private val Context.settingsDataStore: DataStore<Preferences> by preferencesDataStore(
+    name = "settings",
+)
 
-fun DefaultSettings(): Settings =
+fun defaultSettings(): Settings =
     Settings(
         exampleField = "example",
         theme = Theme.SYSTEM,
@@ -63,26 +65,23 @@ class SettingsDataStore
                 .data
                 .catch { exception: Throwable ->
                     if (exception is IOException) {
-                        DefaultSettings()
+                        defaultSettings()
                     } else {
                         throw exception
                     }
                 }.map { preferences: Preferences ->
-                    val exampleField: String =
-                        preferences[PreferenceKeys.EXAMPLE_FIELD] ?: DefaultSettings().exampleField
-
-                    val theme: Theme =
-                        preferences[PreferenceKeys.THEME]?.let { type: String ->
-                            Theme.valueOf(value = type)
-                        }
-                            ?: DefaultSettings().theme
-                    val materialYou =
-                        preferences[PreferenceKeys.MATERIAL_YOU] ?: DefaultSettings().materialYou
-
                     Settings(
-                        exampleField = exampleField,
-                        theme = theme,
-                        materialYou = materialYou,
+                        exampleField =
+                            preferences[PreferenceKeys.EXAMPLE_FIELD]
+                                ?: defaultSettings().exampleField,
+                        theme =
+                            preferences[PreferenceKeys.THEME]?.let { type: String ->
+                                Theme.valueOf(value = type)
+                            }
+                                ?: defaultSettings().theme,
+                        materialYou =
+                            preferences[PreferenceKeys.MATERIAL_YOU]
+                                ?: defaultSettings().materialYou,
                     )
                 }
     }
