@@ -13,11 +13,13 @@ fun Card(
     shape: Shape? = null,
     content: @Composable () -> Unit,
 ) {
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = shape ?: MaterialTheme.shapes.extraLarge,
-        color = MaterialTheme.colorScheme.surfaceContainer,
-    ) {
-        content()
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Surface(
+            modifier = modifier.fillMaxWidth(),
+            shape = shape ?: MaterialTheme.shapes.extraLarge,
+            color = MaterialTheme.colorScheme.surfaceContainer,
+        ) {
+            content()
+        }
     }
 }
