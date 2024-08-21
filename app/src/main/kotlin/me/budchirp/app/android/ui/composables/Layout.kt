@@ -50,10 +50,10 @@ fun Layout(
     content: @Composable () -> Unit,
 ) {
     val navController: NavHostController = LocalNavController.current
+    val drawerState: DrawerState = LocalDrawerState.current
 
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
-    val drawerState: DrawerState = LocalDrawerState.current
-    val enableDrawer: Boolean by appViewModel.enableDrawer.collectAsStateWithLifecycle()
+    val isDrawerEnabled: Boolean by appViewModel.isDrawerEnabled.collectAsStateWithLifecycle()
 
     val scrollBehavior: TopAppBarScrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
@@ -88,7 +88,7 @@ fun Layout(
                         mainRoutes.forEach { _route: Route ->
                             if (route.destination == _route.destination) {
                                 showBack = false
-                                showMenu = enableDrawer
+                                showMenu = isDrawerEnabled
 
                                 return@stop
                             } else {
@@ -137,7 +137,7 @@ fun Layout(
                 Modifier
                     .fillMaxSize()
                     .padding(
-                        paddingValues = PaddingValues(top = innerPadding.calculateTopPadding()),
+                        paddingValues = innerPadding,
                     ),
         ) { content() }
     }

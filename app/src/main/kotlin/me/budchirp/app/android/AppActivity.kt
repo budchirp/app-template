@@ -26,7 +26,7 @@ class AppActivity : AppCompatActivity() {
 
         installSplashScreen().apply {
             setKeepOnScreenCondition {
-                !settingsViewModel.isReady.value
+                settingsViewModel.isLoading.value
             }
         }
 

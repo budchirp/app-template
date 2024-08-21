@@ -11,22 +11,22 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import me.budchirp.app.android.data.datastore.SettingsDataStore
 import me.budchirp.app.android.data.datastore.defaultSettings
 import me.budchirp.app.android.data.datastore.model.NullableSettings
 import me.budchirp.app.android.data.datastore.model.Settings
-import me.budchirp.app.android.data.repository.SettingsRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel
     @Inject
     constructor(
-        private val settingsRepository: SettingsRepository,
+        private val settingsDataStore: SettingsDataStore,
     ) : ViewModel() {
-        private val _isReady: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
-        val isReady: StateFlow<Boolean> = _isReady.asStateFlow()
+        private val _isLoading: MutableStateFlow<Boolean> = MutableStateFlow(value = true)
+        val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-        private val settingsFlow: Flow<Settings> = settingsRepository.settingsFlow
+        private val settingsFlow: Flow<Settings> = settingsDataStore.flow
 
         @Composable
         fun getSettings(): State<Settings> =
@@ -37,7 +37,7 @@ class SettingsViewModel
 
         fun updateSettings(settings: NullableSettings) {
             viewModelScope.launch {
-                settingsRepository.saveSettings(
+                settingsDataStore.update(
                     settings = settings,
                 )
             }
@@ -46,7 +46,7 @@ class SettingsViewModel
         init {
             viewModelScope.launch {
                 settingsFlow.collect {
-                    _isReady.value = true
+                    _isLoading.value = true
                 }
             }
         }

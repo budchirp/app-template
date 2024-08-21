@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import me.budchirp.app.android.data.remote.error.APIResult
+import me.budchirp.app.android.data.remote.model.APIResult
 import me.budchirp.app.android.data.remote.model.PostModel
 import me.budchirp.app.android.data.remote.service.PostService
 import javax.inject.Inject

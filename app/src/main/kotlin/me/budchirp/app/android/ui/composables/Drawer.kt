@@ -52,9 +52,9 @@ fun Drawer(
     content: @Composable () -> Unit,
 ) {
     val drawerState: DrawerState = LocalDrawerState.current
-    val enableDrawer: Boolean by appViewModel.enableDrawer.collectAsStateWithLifecycle()
+    val isDrawerEnabled: Boolean by appViewModel.isDrawerEnabled.collectAsStateWithLifecycle()
 
-    if (enableDrawer) {
+    if (isDrawerEnabled) {
         val windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
 
         when (windowSizeClass.windowWidthSizeClass) {

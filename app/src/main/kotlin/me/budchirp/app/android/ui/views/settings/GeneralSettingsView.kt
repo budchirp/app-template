@@ -1,6 +1,5 @@
 package me.budchirp.app.android.ui.views.settings
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -80,7 +79,6 @@ fun GeneralSettingsView(settingsViewModel: SettingsViewModel = hiltViewModel()) 
         modifier =
             Modifier
                 .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(space = 4.dp),
     ) {
         item {
             ListItem(

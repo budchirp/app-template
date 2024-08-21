@@ -21,8 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import me.budchirp.app.android.data.remote.error.APIResult
-import me.budchirp.app.android.data.remote.error.APIResult.Success
+import me.budchirp.app.android.data.remote.model.APIResult
+import me.budchirp.app.android.data.remote.model.APIResult.Success
 import me.budchirp.app.android.data.remote.model.PostModel
 import me.budchirp.app.android.ui.composables.ListItem
 import me.budchirp.app.android.ui.composables.PullToRefreshLazyColumn

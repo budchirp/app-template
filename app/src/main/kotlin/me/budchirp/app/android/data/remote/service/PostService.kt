@@ -11,7 +11,7 @@ import io.ktor.http.path
 import me.budchirp.app.android.data.remote.client.HttpRoutes
 import me.budchirp.app.android.data.remote.client.KtorClient
 import me.budchirp.app.android.data.remote.error.APIErrorReason
-import me.budchirp.app.android.data.remote.error.APIResult
+import me.budchirp.app.android.data.remote.model.APIResult
 import me.budchirp.app.android.data.remote.model.PostModel
 import javax.inject.Inject
 

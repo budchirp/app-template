@@ -46,8 +46,8 @@ class SettingsDataStore
                 booleanPreferencesKey(name = "material_you")
         }
 
-        suspend fun saveSettings(settings: NullableSettings) {
-            val existingSettings: Settings = settingsFlow.first()
+        suspend fun update(settings: NullableSettings) {
+            val existingSettings: Settings = flow.first()
 
             dataStore.edit { preferences: MutablePreferences ->
                 preferences[PreferenceKeys.EXAMPLE_FIELD] =
@@ -60,7 +60,7 @@ class SettingsDataStore
             }
         }
 
-        val settingsFlow: Flow<Settings> =
+        val flow: Flow<Settings> =
             dataStore
                 .data
                 .catch { exception: Throwable ->

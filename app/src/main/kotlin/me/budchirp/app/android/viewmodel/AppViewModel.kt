@@ -11,10 +11,10 @@ import javax.inject.Inject
 class AppViewModel
     @Inject
     constructor() : ViewModel() {
-        private val _enableDrawer: MutableStateFlow<Boolean> = MutableStateFlow(value = true)
-        val enableDrawer: StateFlow<Boolean> = _enableDrawer.asStateFlow()
+        private val _isDrawerEnabled: MutableStateFlow<Boolean> = MutableStateFlow(value = true)
+        val isDrawerEnabled: StateFlow<Boolean> = _isDrawerEnabled.asStateFlow()
 
-        fun setEnableDrawer(enable: Boolean) {
-            _enableDrawer.value = enable
+        fun setIsDrawerEnabled(enable: Boolean) {
+            _isDrawerEnabled.value = enable
         }
     }
