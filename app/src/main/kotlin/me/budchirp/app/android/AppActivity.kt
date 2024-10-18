@@ -15,18 +15,19 @@ import me.budchirp.app.android.ui.composition.ProvideDrawerState
 import me.budchirp.app.android.ui.composition.ProvideNavController
 import me.budchirp.app.android.ui.navigation.AppNavGraph
 import me.budchirp.app.android.ui.theme.AppTheme
+import me.budchirp.app.android.viewmodel.AppViewModel
 import me.budchirp.app.android.viewmodel.SettingsViewModel
 
 @AndroidEntryPoint
 class AppActivity : AppCompatActivity() {
-    private val settingsViewModel: SettingsViewModel by viewModels<SettingsViewModel>()
+    private val appViewModel: AppViewModel by viewModels<AppViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         installSplashScreen().apply {
             setKeepOnScreenCondition {
-                settingsViewModel.isLoading.value
+                appViewModel.isLoading
             }
         }
 

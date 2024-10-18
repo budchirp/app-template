@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="Theme.AppSplash" parent="Theme.AppSplashColors">
         <item name="postSplashScreenTheme">@style/Theme.App</item>
         <item name="android:windowSplashScreenAnimationDuration">500</item>

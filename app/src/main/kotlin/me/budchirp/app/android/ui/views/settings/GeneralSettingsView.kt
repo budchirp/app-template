@@ -29,21 +29,21 @@ fun GeneralSettingsView(settingsViewModel: SettingsViewModel = hiltViewModel()) 
     val settings: Settings by settingsViewModel.getSettings()
 
     var isOpen: Boolean by
-        remember {
-            mutableStateOf<Boolean>(value = false)
-        }
+    remember {
+        mutableStateOf<Boolean>(value = false)
+    }
 
     var inputValue: String by
-        remember {
-            mutableStateOf<String>(value = settings.exampleField)
-        }
+    remember {
+        mutableStateOf<String>(value = settings.exampleField)
+    }
 
     if (isOpen) {
         AlertDialog(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(all = 16.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(all = 16.dp),
             title = {
                 Text(text = settings.exampleField)
             },
@@ -66,6 +66,7 @@ fun GeneralSettingsView(settingsViewModel: SettingsViewModel = hiltViewModel()) 
             },
             text = {
                 OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
                     value = inputValue,
                     onValueChange = { value: String ->
                         inputValue = value
@@ -77,8 +78,8 @@ fun GeneralSettingsView(settingsViewModel: SettingsViewModel = hiltViewModel()) 
 
     LazyColumn(
         modifier =
-            Modifier
-                .fillMaxSize(),
+        Modifier
+            .fillMaxSize(),
     ) {
         item {
             ListItem(

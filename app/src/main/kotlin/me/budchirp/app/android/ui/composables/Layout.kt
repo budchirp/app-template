@@ -49,12 +49,6 @@ fun Layout(
     route: Route,
     content: @Composable () -> Unit,
 ) {
-    val navController: NavHostController = LocalNavController.current
-    val drawerState: DrawerState = LocalDrawerState.current
-
-    val coroutineScope: CoroutineScope = rememberCoroutineScope()
-    val isDrawerEnabled: Boolean by appViewModel.isDrawerEnabled.collectAsStateWithLifecycle()
-
     val scrollBehavior: TopAppBarScrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
             state = rememberTopAppBarState(),
@@ -88,7 +82,7 @@ fun Layout(
                         mainRoutes.forEach { _route: Route ->
                             if (route.destination == _route.destination) {
                                 showBack = false
-                                showMenu = isDrawerEnabled
+                                showMenu = appViewModel.isDrawerEnabled
 
                                 return@stop
                             } else {
@@ -108,6 +102,8 @@ fun Layout(
                     }
 
                     if (showBack) {
+                        val navController: NavHostController = LocalNavController.current
+
                         IconButton(onClick = { navController.popBackStack() }) {
                             Icon(
                                 icon = Icons.AutoMirrored.Filled.ArrowBack,
@@ -116,6 +112,9 @@ fun Layout(
                     }
 
                     if (showMenu) {
+                        val coroutineScope: CoroutineScope = rememberCoroutineScope()
+                        val drawerState: DrawerState = LocalDrawerState.current
+
                         IconButton(onClick = {
                             coroutineScope.launch {
                                 drawerState.open()

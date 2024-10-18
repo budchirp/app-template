@@ -36,7 +36,7 @@ fun HomeView(homeViewModel: HomeViewModel = hiltViewModel()) {
 
     when (posts) {
         is Success -> {
-            val state: MutableTransitionState<Boolean> =
+            val transitionState: MutableTransitionState<Boolean> =
                 remember {
                     MutableTransitionState(false).apply {
                         targetState = true
@@ -44,7 +44,7 @@ fun HomeView(homeViewModel: HomeViewModel = hiltViewModel()) {
                 }
 
             AnimatedVisibility(
-                visibleState = state,
+                visibleState = transitionState,
                 enter = slideInY(),
                 exit = slideOutY(),
             ) {

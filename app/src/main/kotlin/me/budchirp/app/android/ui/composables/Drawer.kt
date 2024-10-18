@@ -51,14 +51,13 @@ fun Drawer(
     appViewModel: AppViewModel = hiltViewModel<AppViewModel>(),
     content: @Composable () -> Unit,
 ) {
-    val drawerState: DrawerState = LocalDrawerState.current
-    val isDrawerEnabled: Boolean by appViewModel.isDrawerEnabled.collectAsStateWithLifecycle()
-
-    if (isDrawerEnabled) {
+    if (appViewModel.isDrawerEnabled) {
         val windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
 
         when (windowSizeClass.windowWidthSizeClass) {
-            WindowWidthSizeClass.COMPACT, WindowWidthSizeClass.MEDIUM ->
+            WindowWidthSizeClass.COMPACT, WindowWidthSizeClass.MEDIUM -> {
+                val drawerState: DrawerState = LocalDrawerState.current
+
                 ModalNavigationDrawer(
                     drawerContent = {
                         ModalDrawerSheet(
@@ -81,7 +80,7 @@ fun Drawer(
                     drawerState = drawerState,
                 ) {
                     content()
-                }
+                }}
 
             WindowWidthSizeClass.EXPANDED ->
                 PermanentNavigationDrawer(drawerContent = {

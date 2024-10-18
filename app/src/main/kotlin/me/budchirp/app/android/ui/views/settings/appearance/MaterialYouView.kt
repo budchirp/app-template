@@ -31,42 +31,45 @@ fun MaterialYouView(settingsViewModel: SettingsViewModel = hiltViewModel()) {
 
     LazyColumn(
         modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(vertical = 16.dp),
+        Modifier
+            .fillMaxSize()
+            .padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(space = 16.dp),
     ) {
         item {
             Row(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .clip(shape = MaterialTheme.shapes.extraLarge)
-                        .background(
-                            color = MaterialTheme.colorScheme.primaryContainer,
-                        ).toggleable(
-                            value = settingsData.materialYou,
-                        ) { materialYou: Boolean ->
-                            settingsViewModel.updateSettings(
-                                settings = NullableSettings(materialYou = materialYou),
-                            )
-                        }.padding(horizontal = 24.dp, vertical = 12.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .clip(shape = MaterialTheme.shapes.extraLarge)
+                    .background(
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                    )
+                    .toggleable(
+                        value = settingsData.materialYou,
+                    ) { materialYou: Boolean ->
+                        settingsViewModel.updateSettings(
+                            settings = NullableSettings(materialYou = materialYou),
+                        )
+                    }
+                    .padding(horizontal = 24.dp, vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = stringResource(id = Route.MaterialYou.title),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer    ,
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .weight(weight = 1f),
+                    Modifier
+                        .fillMaxWidth()
+                        .weight(weight = 1f),
                     style = MaterialTheme.typography.titleMedium,
                 )
 
                 Switch(
                     modifier =
-                        Modifier
-                            .padding(start = 16.dp),
+                    Modifier
+                        .padding(start = 16.dp),
                     checked = settingsData.materialYou,
                     onCheckedChange = { materialYou: Boolean ->
                         settingsViewModel.updateSettings(
@@ -80,9 +83,9 @@ fun MaterialYouView(settingsViewModel: SettingsViewModel = hiltViewModel()) {
         item {
             Column(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
             ) {
                 Text(text = stringResource(id = Route.MaterialYou.description))
             }

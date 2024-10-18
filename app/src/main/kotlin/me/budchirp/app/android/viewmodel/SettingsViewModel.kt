@@ -23,9 +23,6 @@ class SettingsViewModel
     constructor(
         private val settingsDataStore: SettingsDataStore,
     ) : ViewModel() {
-        private val _isLoading: MutableStateFlow<Boolean> = MutableStateFlow(value = true)
-        val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
-
         private val settingsFlow: Flow<Settings> = settingsDataStore.flow
 
         @Composable
@@ -40,14 +37,6 @@ class SettingsViewModel
                 settingsDataStore.update(
                     settings = settings,
                 )
-            }
-        }
-
-        init {
-            viewModelScope.launch {
-                settingsFlow.collect {
-                    _isLoading.value = true
-                }
             }
         }
     }
