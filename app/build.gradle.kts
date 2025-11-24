@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     alias(libs.plugins.android)
     alias(libs.plugins.kotlin)
@@ -7,18 +5,17 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.aboutlibraries)
 }
 
 android {
-    namespace = "me.budchirp.app.android"
+    namespace = "dev.cankolay.app.android"
     compileSdk =
         libs.versions.compileSdk
             .get()
             .toInt()
 
     defaultConfig {
-        applicationId = "me.budchirp.app.android"
+        applicationId = "dev.cankolay.app.android"
 
         minSdk =
             libs.versions.minSdk
@@ -70,15 +67,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions { jvmTarget = "17" }
+    kotlinOptions {
+        jvmTarget = "21"
+    }
 
     buildFeatures {
         compose = true
-        buildConfig = true
     }
 
     androidResources { generateLocaleConfig = true }
@@ -87,25 +85,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":presentation"))
+
     implementation(libs.bundles.core)
 
     implementation(libs.bundles.hilt)
     ksp(libs.hilt.compiler)
-
-    implementation(platform(libs.compose.bom))
-    implementation(libs.bundles.compose)
-
-    implementation(libs.compose.navigation)
-
-    implementation(libs.bundles.lifecycle)
-
-    implementation(libs.datastore)
-
-    implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.bundles.ktor)
-
-    implementation(libs.aboutlibraries)
-
-    implementation(libs.coil)
 }

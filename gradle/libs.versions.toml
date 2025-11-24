@@ -1,38 +1,36 @@
 [versions]
-compileSdk = "35"
+compileSdk = "36"
 minSdk = "28"
 
-android-plugin = "8.7.1"
-kotlin = "2.0.21"
-ksp = "2.0.21-1.0.25"
+android-plugin = "8.13.1"
+kotlin = "2.2.21"
+ksp = "2.2.10-2.0.2"
 
-kotlinx-serialization-json = "1.6.3"
+kotlinx-serialization-json = "1.9.0"
 
-hilt-navigation = "1.2.0"
-hilt = "2.50"
+hilt-navigation = "1.3.0"
+hilt = "2.57.2"
 
-aboutlibraries = "10.10.0"
+compose = "1.9.5"
 
-compose = "1.7.4"
+core = "1.17.0"
+core-splashscreen = "1.2.0"
 
-core = "1.13.1"
-core-splashscreen = "1.2.0-alpha02"
+appcompat = "1.7.1"
 
-appcompat = "1.7.0"
+composeBom = "2025.11.01"
+lifecycle = "2.10.0"
+material = "1.4.0"
+material-icons = '1.7.8'
 
-composeBom = "2024.10.00"
-lifecycle = "2.8.6"
-material = "1.3.0"
+navigation = "2.9.6"
 
-navigation = "2.8.3"
+ktor = "3.3.2"
 
-ktor = "2.3.10"
+datastore = "1.2.0"
 
-datastore = "1.1.1"
-
-materialkolor = "2.0.0"
-
-coil = "2.6.0"
+coil = "3.3.0"
+squircle-shape = "4.0.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
@@ -51,9 +49,9 @@ compose-foundation = { group = "androidx.compose.foundation", name = "foundation
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material" }
-compose-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive-android", version = "1.0.0" }
-compose-material-icons = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "compose" }
-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose" }
+compose-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive-android", version = "1.1.0" }
+compose-material-icons = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "material-icons" }
+compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-icons" }
 
 compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
@@ -63,17 +61,19 @@ datastore = { group = "androidx.datastore", name = "datastore-preferences", vers
 
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
+ktor-client-websockets = { group = "io.ktor", name = "ktor-client-websockets", version.ref = "ktor" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
 
-aboutlibraries = { group = "com.mikepenz", name = "aboutlibraries-core", version.ref = "aboutlibraries" }
-
-materialkolor = { group = "com.materialkolor", name = "material-kolor", version.ref = "materialkolor" }
-
-coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil" }
+squircle-shape = { group = "io.github.stoyan-vuchev", name = "squircle-shape-android", version.ref = "squircle-shape" }
 
 [bundles]
 core = [
@@ -91,7 +91,7 @@ compose = [
     "compose-material3",
     "compose-adaptive",
     "compose-material-icons",
-    "compose-material-icons-extended"
+    "compose-material-icons-extended",
 ]
 
 lifecycle = [
@@ -103,14 +103,15 @@ hilt = [
     "hilt-navigation"
 ]
 
-ktor = ["ktor-client-core", "ktor-client-okhttp", "ktor-client-logging", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json"
-]
+ktor = ["ktor-client-android", "ktor-client-core", "ktor-client-okhttp", "ktor-client-logging", "ktor-client-auth", "ktor-client-websockets", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json", "ktor-resources"]
+
+coil = ["coil-compose", "coil-network"]
 
 [plugins]
 android = { id = "com.android.application", version.ref = "android-plugin" }
+android-library = { id = "com.android.library", version.ref = "android-plugin" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
