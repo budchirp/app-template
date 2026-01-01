@@ -34,12 +34,16 @@ import dev.cankolay.app.android.presentation.R
 import dev.cankolay.app.android.presentation.composable.Icon
 import dev.cankolay.app.android.presentation.composition.LocalDrawerState
 import dev.cankolay.app.android.presentation.composition.LocalNavController
-import dev.cankolay.app.android.presentation.navigation.mainRoutes
-import dev.cankolay.app.android.presentation.navigation.uiRoutes
+import dev.cankolay.app.android.presentation.navigation.Route
+import dev.cankolay.app.android.presentation.navigation.routeDetails
 import dev.cankolay.app.android.presentation.util.UiUtil
 import kotlinx.coroutines.launch
 import sv.lib.squircleshape.CornerSmoothing
 import sv.lib.squircleshape.SquircleShape
+
+val routes = listOf(
+    Route.Home, Route.Settings
+)
 
 @Composable
 fun AppDrawer(
@@ -135,8 +139,8 @@ fun DrawerContent() {
     ) {
         val backStackEntry by navController.currentBackStackEntryAsState()
 
-        mainRoutes.map { route ->
-            val uiRoute = uiRoutes[route::class]!!
+        routes.map { route ->
+            val details = routeDetails[route]!!
 
             val isSelected =
                 backStackEntry?.destination?.hasRoute(route = route::class) == true
@@ -157,11 +161,11 @@ fun DrawerContent() {
                         )
                     }
                 },
-                label = { Text(text = stringResource(id = uiRoute.title)) },
+                label = { Text(text = stringResource(id = details.title)) },
                 icon = {
                     Icon(
-                        icon = if (isSelected) uiRoute.icon else uiRoute.unselectedIcon
-                            ?: uiRoute.icon
+                        icon = if (isSelected) details.icon.default else details.icon.outlined
+                            ?: details.icon.default
                     )
                 },
             )

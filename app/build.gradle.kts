@@ -71,10 +71,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = "21"
-    }
-
     buildFeatures {
         compose = true
     }
@@ -93,4 +89,6 @@ dependencies {
 
     implementation(libs.bundles.hilt)
     ksp(libs.hilt.compiler)
+
+    ksp("org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.0-Beta1")
 }

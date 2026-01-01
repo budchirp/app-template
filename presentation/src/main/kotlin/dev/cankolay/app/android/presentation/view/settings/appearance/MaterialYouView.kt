@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -23,77 +24,82 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.cankolay.app.android.presentation.R
+import dev.cankolay.app.android.presentation.composable.layout.AppLayout
+import dev.cankolay.app.android.presentation.navigation.Route
 import dev.cankolay.app.android.presentation.viewmodel.SettingsEvent
 import dev.cankolay.app.android.presentation.viewmodel.SettingsViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MaterialYouView(settingsViewModel: SettingsViewModel = hiltViewModel()) {
-    val state by settingsViewModel.state.collectAsState()
+    AppLayout(route = Route.MaterialYou) {
+        val state by settingsViewModel.state.collectAsState()
 
-    LazyColumn(
-        modifier =
-            Modifier
-                .fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(space = 16.dp),
-    ) {
-        item {
-            state?.let { state ->
-                val onClick: (Boolean) -> Unit = { materialYou ->
-                    settingsViewModel.onEvent(
-                        event = SettingsEvent.UpdateSettings(
-                            settingsState = state.copy(
-                                materialYou = materialYou
+        LazyColumn(
+            modifier =
+                Modifier
+                    .fillMaxSize(),
+            contentPadding = PaddingValues(vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(space = 16.dp),
+        ) {
+            item {
+                state?.let { state ->
+                    val onClick: (Boolean) -> Unit = { materialYou ->
+                        settingsViewModel.onEvent(
+                            event = SettingsEvent.UpdateSettings(
+                                settingsState = state.copy(
+                                    materialYou = materialYou
+                                )
                             )
                         )
-                    )
-                }
+                    }
 
-                Row(
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                            .clip(shape = MaterialTheme.shapes.extraLarge)
-                            .background(
-                                color = MaterialTheme.colorScheme.primaryContainer,
-                            )
-                            .toggleable(
-                                value = state.materialYou,
-                                onValueChange = onClick
-                            )
-                            .padding(horizontal = 24.dp, vertical = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.appearance_material_you),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    Row(
                         modifier =
                             Modifier
                                 .fillMaxWidth()
-                                .weight(weight = 1f),
-                        style = MaterialTheme.typography.titleMedium,
-                    )
+                                .padding(horizontal = 16.dp)
+                                .clip(shape = MaterialTheme.shapes.extraLarge)
+                                .background(
+                                    color = MaterialTheme.colorScheme.primaryContainer,
+                                )
+                                .toggleable(
+                                    value = state.materialYou,
+                                    onValueChange = onClick
+                                )
+                                .padding(horizontal = 24.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.appearance_material_you),
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .weight(weight = 1f),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
 
-                    Switch(
-                        modifier =
-                            Modifier
-                                .padding(start = 16.dp),
-                        checked = state.materialYou,
-                        onCheckedChange = onClick,
-                    )
+                        Switch(
+                            modifier =
+                                Modifier
+                                    .padding(start = 16.dp),
+                            checked = state.materialYou,
+                            onCheckedChange = onClick,
+                        )
+                    }
                 }
             }
-        }
 
-        item {
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-            ) {
-                Text(text = stringResource(id = R.string.appearance_material_you_desc))
+            item {
+                Column(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                ) {
+                    Text(text = stringResource(id = R.string.appearance_material_you_desc))
+                }
             }
         }
     }

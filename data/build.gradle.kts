@@ -18,12 +18,6 @@ android {
             libs.versions.minSdk
                 .get()
                 .toInt()
-        targetSdk =
-            libs.versions.compileSdk
-                .get()
-                .toInt()
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     sourceSets.all {
@@ -33,10 +27,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    kotlinOptions {
-        jvmTarget = "21"
     }
 }
 

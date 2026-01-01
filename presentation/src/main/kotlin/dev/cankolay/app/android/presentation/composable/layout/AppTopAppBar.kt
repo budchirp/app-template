@@ -21,8 +21,7 @@ import dev.cankolay.app.android.presentation.composable.Icon
 import dev.cankolay.app.android.presentation.composition.LocalDrawerState
 import dev.cankolay.app.android.presentation.composition.LocalNavController
 import dev.cankolay.app.android.presentation.navigation.Route
-import dev.cankolay.app.android.presentation.navigation.mainRoutes
-import dev.cankolay.app.android.presentation.navigation.uiRoutes
+import dev.cankolay.app.android.presentation.navigation.routeDetails
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,14 +34,14 @@ fun AppTopAppBar(
     actions: @Composable () -> Unit = {},
     navigationIcon: @Composable () -> Unit = {},
 ) {
-    val coroutineScope = rememberCoroutineScope()
+    val details = routeDetails[route]!!
 
-    val uiRoute = uiRoutes[route::class]!!
+    val coroutineScope = rememberCoroutineScope()
 
     LargeTopAppBar(
         title = {
             Text(
-                text = stringResource(id = uiRoute.title),
+                text = stringResource(id = details.title),
                 style = MaterialTheme.typography.titleLarge,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -57,7 +56,7 @@ fun AppTopAppBar(
             var showBack = false
             var showMenu = true
             run stop@{
-                mainRoutes.forEach { mainRoute: Route ->
+                routes.forEach { mainRoute: Route ->
                     if (route == mainRoute) {
                         showBack = false
                         showMenu = true

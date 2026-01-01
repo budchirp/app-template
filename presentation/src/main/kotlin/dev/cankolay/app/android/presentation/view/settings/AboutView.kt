@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,22 +33,27 @@ import dev.cankolay.app.android.presentation.R
 import dev.cankolay.app.android.presentation.composable.Card
 import dev.cankolay.app.android.presentation.composable.Icon
 import dev.cankolay.app.android.presentation.composable.ListItem
+import dev.cankolay.app.android.presentation.composable.layout.AppLayout
+import dev.cankolay.app.android.presentation.navigation.Route
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutView() {
-    LazyColumn(
-        modifier =
-            Modifier
-                .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(space = 16.dp),
-        contentPadding = PaddingValues(vertical = 16.dp),
-    ) {
-        item {
-            AppCard()
-        }
+    AppLayout(route = Route.About) {
+        LazyColumn(
+            modifier =
+                Modifier
+                    .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(space = 16.dp),
+            contentPadding = PaddingValues(vertical = 16.dp),
+        ) {
+            item {
+                AppCard()
+            }
 
-        item {
-            DevCard()
+            item {
+                DevCard()
+            }
         }
     }
 }

@@ -28,13 +28,13 @@ fun AppLayout(
             state = rememberTopAppBarState(),
             canScroll = { true },
         ),
-    topBar: (@Composable () -> Unit)? = {
+    topBar: (@Composable (Route, TopAppBarScrollBehavior) -> Unit) = { route, scrollBehavior ->
         AppTopAppBar(
             route = route,
             scrollBehavior = scrollBehavior
         )
     },
-    bottomBar: (@Composable () -> Unit)? = {},
+    bottomBar: (@Composable () -> Unit) = {},
     content: @Composable () -> Unit,
 ) {
     Scaffold(
@@ -44,10 +44,10 @@ fun AppLayout(
                 .fillMaxSize()
                 .nestedScroll(connection = scrollBehavior.nestedScrollConnection),
         topBar = {
-            topBar?.invoke()
+            topBar(route, scrollBehavior)
         },
         bottomBar = {
-            bottomBar?.invoke()
+            bottomBar()
         },
         containerColor = MaterialTheme.colorScheme.surface
     ) { innerPadding: PaddingValues ->

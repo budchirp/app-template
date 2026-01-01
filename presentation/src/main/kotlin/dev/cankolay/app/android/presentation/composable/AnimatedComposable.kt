@@ -12,8 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
-import dev.cankolay.app.android.presentation.composable.layout.AppLayout
 import dev.cankolay.app.android.presentation.motion.MotionConstants
 import dev.cankolay.app.android.presentation.motion.initialOffset
 import dev.cankolay.app.android.presentation.motion.slideIn
@@ -29,7 +27,6 @@ enum class AnimationType {
 
 @OptIn(ExperimentalMaterial3Api::class)
 inline fun <reified T : @Serializable Route> NavGraphBuilder.animatedComposable(
-    defaultLayout: Boolean = true,
     animationType: AnimationType = AnimationType.SLIDE,
     crossinline content: @Composable AnimatedContentScope.(backStackEntry: NavBackStackEntry) -> Unit,
 ) {
@@ -77,14 +74,6 @@ inline fun <reified T : @Serializable Route> NavGraphBuilder.animatedComposable(
             }
         }
     ) { backStackEntry ->
-        if (defaultLayout) {
-            AppLayout(
-                route = backStackEntry.toRoute<T>(),
-            ) {
-                content(this, backStackEntry)
-            }
-        } else {
-            content(this, backStackEntry)
-        }
+        content(this, backStackEntry)
     }
 }

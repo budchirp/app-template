@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val getSettingsStateUseCase: GetSettingsStateUseCase,
+    getSettingsStateUseCase: GetSettingsStateUseCase,
     private val updateSettingsStateUseCase: UpdateSettingsStateUseCase
 ) : ViewModel() {
 
