@@ -19,10 +19,6 @@ android {
                 .toInt()
     }
 
-    sourceSets.all {
-        kotlin.srcDir(srcDir = "src/$name/kotlin")
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
@@ -32,12 +28,11 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation(libs.kotlinx.serialization.json)
+
     implementation(libs.bundles.hilt)
     ksp(libs.hilt.compiler)
 
     implementation(libs.datastore)
-
-    implementation(libs.kotlinx.serialization.json)
-
     implementation(libs.bundles.ktor)
 }

@@ -38,10 +38,6 @@ android {
         }
     }
 
-    sourceSets.all {
-        kotlin.srcDir("src/$name/kotlin")
-    }
-
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
@@ -75,8 +71,6 @@ android {
     }
 
     androidResources { generateLocaleConfig = true }
-
-    packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
 }
 
 dependencies {

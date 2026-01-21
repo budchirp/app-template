@@ -20,11 +20,6 @@ android {
                 .toInt()
     }
 
-    sourceSets.all {
-        kotlin.srcDir(srcDir = "src/$name/kotlin")
-    }
-
-
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -47,9 +42,9 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.bundles.hilt)
-    implementation(libs.appcompat)
-    implementation(libs.material3)
     ksp(libs.hilt.compiler)
+
+    implementation(libs.appcompat)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)

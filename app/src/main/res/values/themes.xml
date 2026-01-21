@@ -6,6 +6,7 @@
     <style name="Theme.AppSplashColors" parent="Theme.SplashScreen" />
 
     <style name="Theme.AppSplash" parent="Theme.AppSplashColors">
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Theme.App</item>
     </style>
 </resources>
