@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import dev.cankolay.app.android.presentation.composable.Icon
 import dev.cankolay.app.android.presentation.composition.LocalNavBackStack
+import dev.cankolay.app.android.presentation.motion.slideInY
 import dev.cankolay.app.android.presentation.navigation.Route
 import dev.cankolay.app.android.presentation.navigation.RouteDetail
 import dev.cankolay.app.android.presentation.navigation.getDetails
@@ -37,7 +38,10 @@ fun BoxScope.AppToolbar() {
             Modifier
                 .align(Alignment.BottomCenter)
                 .offset(y = -ScreenOffset - 16.dp)
-                .zIndex(1f), visible = isVisible, enter = fadeIn() + scaleIn(), exit = fadeOut()
+                .zIndex(1f),
+        visible = isVisible,
+        enter = fadeIn() + scaleIn() + slideInY(),
+        exit = fadeOut()
     ) {
         HorizontalFloatingToolbar(
             colors = FloatingToolbarDefaults.vibrantFloatingToolbarColors(),

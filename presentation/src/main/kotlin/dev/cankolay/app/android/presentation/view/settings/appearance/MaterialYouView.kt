@@ -201,7 +201,7 @@ private fun RowScope.ColorButton(
 ) {
     Surface(
         modifier = Modifier
-            .sizeIn(maxWidth = 96.dp, maxHeight = 96.dp)
+            .sizeIn(maxWidth = 72.dp, maxHeight = 72.dp)
     ) {
         Card(
             modifier = Modifier
