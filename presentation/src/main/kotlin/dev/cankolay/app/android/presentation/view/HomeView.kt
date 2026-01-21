@@ -1,106 +1,79 @@
 package dev.cankolay.app.android.presentation.view
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.cankolay.app.android.domain.model.api.ApiResult
 import dev.cankolay.app.android.domain.model.api.post.Post
-import dev.cankolay.app.android.presentation.composable.ListItem
+import dev.cankolay.app.android.presentation.composable.CardStackList
+import dev.cankolay.app.android.presentation.composable.CardStackListItem
 import dev.cankolay.app.android.presentation.composable.PullToRefreshLazyColumn
 import dev.cankolay.app.android.presentation.composable.layout.AppLayout
-import dev.cankolay.app.android.presentation.motion.slideInY
-import dev.cankolay.app.android.presentation.motion.slideOutY
 import dev.cankolay.app.android.presentation.navigation.Route
+import dev.cankolay.app.android.presentation.viewmodel.PostEvent
 import dev.cankolay.app.android.presentation.viewmodel.PostViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HomeView(postViewModel: PostViewModel = hiltViewModel()) {
+    LaunchedEffect(key1 = Unit) {
+        postViewModel.onEvent(event = PostEvent.FetchPosts)
+    }
+
     AppLayout(route = Route.Home) {
         val posts by postViewModel.posts.collectAsState()
 
-
-        when (posts) {
-            is ApiResult.Success -> {
-                AnimatedVisibility(
-                    visibleState = remember {
-                        MutableTransitionState(initialState = false).apply {
-                            targetState = true
-                        }
-                    },
-                    enter = slideInY(),
-                    exit = slideOutY(),
-                ) {
-                    PullToRefreshLazyColumn(
-                        modifier =
-                            Modifier
-                                .fillMaxSize(),
-                        onRefresh = { },
-                    ) {
-                        items(items = (posts as ApiResult.Success<List<Post>>).data) { post ->
-                            ListItem(
-                                title = post.title,
-                                description = post.description,
-                                leadingIcon = {
-                                    Text(
-                                        text = post.id.toString(),
-                                    )
-                                },
-                            )
-                        }
-                    }
-                }
-            }
-
-            is ApiResult.Fatal, is ApiResult.Error -> {
-                LazyColumn(
-                    modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .wrapContentSize(align = Alignment.Center),
-                    verticalArrangement = Arrangement.spacedBy(space = 16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
+        PullToRefreshLazyColumn(
+            isLoading = posts is ApiResult.Loading,
+            onRefresh = { postViewModel.onEvent(event = PostEvent.FetchPosts) },
+        ) {
+            when (posts) {
+                is ApiResult.Success -> {
                     item {
-                        Text(
-                            text = "An error occurred while fetching the API",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.error,
-                            textAlign = TextAlign.Center,
+                        CardStackList(
                             modifier = Modifier.padding(horizontal = 16.dp),
+                            items = (posts as ApiResult.Success<List<Post>>).data.map { post ->
+                                CardStackListItem(
+                                    title = post.title,
+                                    description = post.description,
+                                )
+                            }
                         )
                     }
+                }
 
+                is ApiResult.Fatal, is ApiResult.Error -> {
                     item {
-                        Button(onClick = { }) {
-                            Text(text = "Try again")
+                        Column(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(space = 16.dp)
+                        ) {
+                            Text(
+                                text = "An error occurred while fetching the API",
+                                style = MaterialTheme.typography.titleLarge,
+                                color = MaterialTheme.colorScheme.error,
+                            )
+
+                            Button(onClick = { postViewModel.onEvent(event = PostEvent.FetchPosts) }) {
+                                Text(text = "Try again")
+                            }
                         }
                     }
                 }
-            }
 
-            else -> {
-                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                else -> {}
             }
         }
     }

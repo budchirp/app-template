@@ -12,7 +12,6 @@ import io.ktor.client.statement.HttpResponse
 import kotlinx.serialization.Serializable
 
 suspend inline fun <reified T : @Serializable Any> request(
-    response: Boolean = true,
     block: suspend () -> HttpResponse
 ): ApiResult<T> {
     return try {
@@ -21,12 +20,16 @@ suspend inline fun <reified T : @Serializable Any> request(
         val statusCode = response.status.value
         if (statusCode in 200..299) {
             val body = response.body<SuccessResponse<T>>()
-            ApiResult.Success(
+            if (body.error) ApiResult.Error(
+                message = body.message,
+                reason = ErrorReason.CLIENT
+            ) else ApiResult.Success(
                 message = body.message,
                 data = body.data
             )
         } else {
             val body = response.body<ErrorResponse>()
+
             when (statusCode) {
                 in 300..399 -> {
                     ApiResult.Error(
@@ -65,19 +68,26 @@ suspend inline fun <reified T : @Serializable Any> request(
     }
 }
 
-suspend fun request(block: suspend () -> HttpResponse): ApiResult<Nothing?> {
+suspend fun request(
+    no_return: Boolean,
+    block: suspend () -> HttpResponse
+): ApiResult<Nothing?> {
     return try {
         val response = block()
 
         val statusCode = response.status.value
         if (statusCode in 200..299) {
             val body = response.body<SuccessResponse<Nothing?>>()
-            ApiResult.Success(
+            if (body.error) ApiResult.Error(
                 message = body.message,
-                data = body.data
+                reason = ErrorReason.CLIENT
+            ) else ApiResult.Success(
+                message = body.message,
+                data = null
             )
         } else {
             val body = response.body<ErrorResponse>()
+
             when (statusCode) {
                 in 300..399 -> {
                     ApiResult.Error(

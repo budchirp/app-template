@@ -4,61 +4,73 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build
-import android.view.View
 import android.view.Window
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MaterialExpressiveTheme
+import androidx.compose.material3.MotionScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.colorResource
 import androidx.core.view.WindowCompat
+import com.materialkolor.PaletteStyle
+import com.materialkolor.dynamiccolor.ColorSpec
+import com.materialkolor.rememberDynamicColorScheme
+import dev.cankolay.app.android.domain.model.application.MaterialYou
 import dev.cankolay.app.android.domain.model.application.SettingsState
 import dev.cankolay.app.android.domain.model.application.Theme
 
+val APP_COLOR = Color(
+    color = 0xFF2563EB
+)
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun AppTheme(
     settingsState: SettingsState,
-    context: Context = LocalContext.current,
-    view: View = LocalView.current,
     content: @Composable () -> Unit,
 ) {
-    val isDark =
-        when (settingsState.theme.type) {
-            Theme.SYSTEM.type -> isSystemInDarkTheme()
-            Theme.DARK.type -> true
-            Theme.LIGHT.type -> false
-            else -> isSystemInDarkTheme()
-        }
+    val isDark = isDark(state = settingsState)
 
-    val isMonet = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val context = LocalContext.current
+    val view = LocalView.current
 
-    val colorScheme =
-        when {
-            isMonet && settingsState.materialYou && isDark ->
-                dynamicDarkColorScheme(
-                    context,
-                )
-
-            isMonet && settingsState.materialYou && !isDark ->
-                dynamicLightColorScheme(
-                    context,
-                )
-
-            isDark -> DarkColorScheme
-            !isDark -> LightColorScheme
-
-            else -> LightColorScheme
-        }
-
-    val window = view.context.findWindow()
+    val window = context.findWindow()
     window?.let {
         WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !isDark
         WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !isDark
     }
 
-    MaterialTheme(colorScheme = colorScheme, shapes = shapes, content = content)
+    val wallpaperColor = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) colorResource(
+        id = android.R.color.system_accent1_500
+    ) else APP_COLOR
+
+    MaterialExpressiveTheme(
+        colorScheme = rememberDynamicColorScheme(
+            isAmoled = settingsState.isAmoled,
+            isDark = isDark,
+            seedColor = when (settingsState.materialYou) {
+                is MaterialYou.WALLPAPER -> wallpaperColor
+                is MaterialYou.SEED -> settingsState.materialYou.color
+
+                is MaterialYou.OFF -> APP_COLOR
+            },
+            style = PaletteStyle.Expressive,
+            specVersion = ColorSpec.SpecVersion.SPEC_2025
+        ),
+        shapes = shapes,
+        motionScheme = MotionScheme.expressive(),
+        content = content
+    )
+}
+
+@Composable
+fun isDark(state: SettingsState) = when (state.theme) {
+    Theme.SYSTEM -> isSystemInDarkTheme()
+    Theme.DARK -> true
+    Theme.LIGHT -> false
 }
 
 fun Context.findWindow(): Window? =

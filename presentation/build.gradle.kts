@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
@@ -49,15 +48,18 @@ dependencies {
 
     implementation(libs.bundles.hilt)
     implementation(libs.appcompat)
+    implementation(libs.material3)
     ksp(libs.hilt.compiler)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
 
-    implementation(libs.compose.navigation)
+    implementation(libs.bundles.navigation)
+    implementation(libs.bundles.adaptive)
 
     implementation(libs.bundles.lifecycle)
 
     implementation(libs.bundles.coil)
     implementation(libs.squircle.shape)
+    implementation(libs.materialKolor)
 }

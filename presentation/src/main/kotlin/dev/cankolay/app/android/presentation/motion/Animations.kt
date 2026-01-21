@@ -13,7 +13,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 
-const val initialOffset = 0.10f
+const val initialOffset = 0.05f
 
 object MotionConstants {
     const val ENTER_DURATION = 600

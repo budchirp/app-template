@@ -17,7 +17,6 @@ private val Context.settingsDataStore by preferencesDataStore(name = "settings")
 @Module
 @InstallIn(SingletonComponent::class)
 object DataStoreModule {
-
     @Provides
     @Singleton
     @SettingsDataStore

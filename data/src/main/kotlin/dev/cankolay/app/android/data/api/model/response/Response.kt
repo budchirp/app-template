@@ -10,6 +10,7 @@ data class ErrorResponse(
 
 @Serializable
 data class SuccessResponse<T>(
+    val error: Boolean,
     val message: String,
     val data: T
 )

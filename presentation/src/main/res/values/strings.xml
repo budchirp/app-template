@@ -5,7 +5,7 @@
 
     <string name="dev_name" translatable="false">Can Kolay</string>
     <string name="dev_username" translatable="false">budchirp</string>
-    <string name="dev_website" translatable="false">https://budchirp.me</string>
+    <string name="dev_website" translatable="false">https://cankolay.dev</string>
     <string name="dev_github" translatable="false">https://github.com/budchirp</string>
 
     <string name="empty" translatable="false" />
@@ -27,17 +27,20 @@
 
     <string name="system">System</string>
     <string name="dark">Dark</string>
+    <string name="amoled" translatable="false">Amoled</string>
     <string name="light">Light</string>
 
     <string name="appearance">Appearance</string>
     <string name="appearance_desc">Theme, Material You</string>
 
-    <string name="appearance_theme">Theme</string>
-    <string name="appearance_theme_desc">Choose between dark or light theme</string>
+    <string name="theme">Theme</string>
+    <string name="theme_desc">Choose between dark or light theme</string>
 
-    <string name="appearance_material_you">Material You</string>
-    <string name="appearance_material_you_desc">Use wallpaper colors on this app</string>
-    <string name="appearance_material_you_desc_unsupported">This option is not supported under Android 12</string>
+    <string name="material_you">Material You</string>
+    <string name="material_you_desc">Customize the app colors</string>
+    <string name="material_you_desc_unsupported">This option is not supported under Android 12</string>
+
+    <string name="wallpaper_colors">Use wallpaper colors</string>
 
     <string name="languages">Languages</string>
     <string name="languages_desc">Change the app language</string>

@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android)
-    alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
@@ -89,6 +88,4 @@ dependencies {
 
     implementation(libs.bundles.hilt)
     ksp(libs.hilt.compiler)
-
-    ksp("org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.0-Beta1")
 }

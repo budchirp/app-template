@@ -1,20 +1,18 @@
 package dev.cankolay.app.android.presentation.view.settings.appearance
 
-import android.os.Build
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import dev.cankolay.app.android.presentation.R
+import androidx.compose.ui.unit.dp
+import dev.cankolay.app.android.presentation.composable.CardStackList
+import dev.cankolay.app.android.presentation.composable.CardStackListItem
 import dev.cankolay.app.android.presentation.composable.Icon
-import dev.cankolay.app.android.presentation.composable.ListItem
 import dev.cankolay.app.android.presentation.composable.layout.AppLayout
-import dev.cankolay.app.android.presentation.composition.LocalNavController
+import dev.cankolay.app.android.presentation.composable.layout.AppLazyColumn
+import dev.cankolay.app.android.presentation.composition.LocalNavBackStack
 import dev.cankolay.app.android.presentation.navigation.Route
-import dev.cankolay.app.android.presentation.navigation.routeDetails
+import dev.cankolay.app.android.presentation.navigation.getDetails
 
 private val routes = listOf(
     Route.Theme, Route.MaterialYou
@@ -23,43 +21,32 @@ private val routes = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppearanceView() {
-    val navController = LocalNavController.current
+    val navBackStack = LocalNavBackStack.current
 
     AppLayout(route = Route.Appearance) {
-        val isMonet = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+        AppLazyColumn {
+            item {
+                CardStackList(
+                    modifier =
+                        Modifier
+                            .padding(horizontal = 16.dp),
+                    items = routes.map { route ->
+                        val details = route.getDetails()
 
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(items = routes) { route ->
-                val details = routeDetails[route]!!
-
-                ListItem(
-                    title = stringResource(id = details.title),
-                    description =
-                        stringResource(
-                            id =
-                                if (route ==
-                                    Route.MaterialYou
-                                ) {
-                                    if (isMonet) R.string.appearance_material_you_desc else R.string.appearance_material_you_desc_unsupported
-                                } else {
-                                    details.description
-                                },
-                        ),
-                    onClick = {
-                        navController.navigate(route = route)
-                    },
-                    leadingIcon = {
-                        Icon(
-                            icon = details.icon.default,
+                        CardStackListItem(
+                            title = details.title,
+                            description = details.description,
+                            onClick = {
+                                navBackStack.add(element = route)
+                            },
+                            leadingContent = {
+                                Icon(
+                                    icon = details.icon.default,
+                                )
+                            },
                         )
-                    },
-                    enabled =
-                        if (route == Route.MaterialYou) {
-                            isMonet
-                        } else {
-                            true
-                        },
-                )
+                    })
+
             }
         }
     }

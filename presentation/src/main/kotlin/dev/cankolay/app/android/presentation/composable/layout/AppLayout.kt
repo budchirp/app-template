@@ -1,7 +1,6 @@
 package dev.cankolay.app.android.presentation.composable.layout
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -24,21 +22,17 @@ import dev.cankolay.app.android.presentation.navigation.Route
 fun AppLayout(
     route: Route,
     scrollBehavior: TopAppBarScrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-            state = rememberTopAppBarState(),
-            canScroll = { true },
-        ),
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
     topBar: (@Composable (Route, TopAppBarScrollBehavior) -> Unit) = { route, scrollBehavior ->
         AppTopAppBar(
             route = route,
             scrollBehavior = scrollBehavior
         )
     },
-    bottomBar: (@Composable () -> Unit) = {},
+    floatingActionButton: @Composable () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     Scaffold(
-        contentWindowInsets = WindowInsets.systemBars.only(sides = WindowInsetsSides.Horizontal),
         modifier =
             Modifier
                 .fillMaxSize()
@@ -46,18 +40,17 @@ fun AppLayout(
         topBar = {
             topBar(route, scrollBehavior)
         },
-        bottomBar = {
-            bottomBar()
-        },
-        containerColor = MaterialTheme.colorScheme.surface
-    ) { innerPadding: PaddingValues ->
+        floatingActionButton = { floatingActionButton() },
+        contentWindowInsets = WindowInsets.systemBars.only(sides = WindowInsetsSides.Top),
+        containerColor = MaterialTheme.colorScheme.surface,
+    ) { innerPadding ->
         Column(
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .padding(
-                        paddingValues = innerPadding,
-                    ),
-        ) { content() }
+                    .padding(paddingValues = innerPadding),
+        ) {
+            content()
+        }
     }
 }

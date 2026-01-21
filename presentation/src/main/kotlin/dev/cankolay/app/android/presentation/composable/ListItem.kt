@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
@@ -22,50 +23,47 @@ fun ListItem(
     containerModifier: Modifier = Modifier.fillMaxWidth(),
     title: String,
     description: String? = null,
-    overline: String? = null,
     onClick: (() -> Unit)? = null,
-    leadingIcon: @Composable (() -> Unit)? = null,
+    enabled: Boolean = onClick != null,
+    leadingContent: @Composable (() -> Unit)? = null,
+    trailingContent: @Composable (() -> Unit)? = null,
     contentPadding: PaddingValues = PaddingValues(
-        horizontal = 16.dp,
-        vertical = 12.dp
+        vertical = if (description == null) 24.dp else 16.dp
     ),
     separator: Boolean = false,
-    trailingIcon: @Composable (() -> Unit)? = null,
-    enabled: Boolean = onClick != null,
+    overline: String? = null,
 ) {
     Column(modifier = containerModifier) {
         Row(
             modifier =
                 modifier
-                    .then(
-                        other = if (onClick != null && enabled) {
-                            Modifier.clickable { onClick() }
-                        } else {
-                            Modifier
-                        },
-                    )
-                    .padding(
-                        paddingValues = contentPadding
-                    )
+                    .then(other = if (enabled) Modifier.clickable { onClick?.invoke() } else Modifier)
+                    .padding(paddingValues = contentPadding)
                     .then(other = modifier),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(space = 16.dp)
         ) {
-            leadingIcon?.let {
-                Column(
+            leadingContent?.let {
+                Row(
                     modifier = Modifier
+                        .padding(horizontal = 16.dp)
                         .size(size = 24.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalArrangement = Arrangement.spacedBy(
+                        space = 8.dp,
+                        alignment = Alignment.CenterHorizontally
+                    ),
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    leadingIcon()
+                    leadingContent()
                 }
             }
 
             Column(
                 modifier =
                     Modifier
-                        .fillMaxWidth()
+                        .padding(
+                            start = if (leadingContent == null) 16.dp else 0.dp,
+                            end = if (trailingContent == null) 16.dp else 0.dp
+                        )
                         .weight(weight = 1f),
                 verticalArrangement = Arrangement.Center
             ) {
@@ -87,12 +85,18 @@ fun ListItem(
                 }
             }
 
-            trailingIcon?.let {
+            trailingContent?.let {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .height(height = 24.dp),
+                    horizontalArrangement = Arrangement.spacedBy(
+                        space = 8.dp,
+                        alignment = Alignment.CenterHorizontally
+                    ),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    trailingIcon()
+                    trailingContent()
                 }
             }
         }

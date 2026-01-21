@@ -18,13 +18,14 @@
     <string name="appearance">Görünüm</string>
     <string name="appearance_desc">Tema, Material You</string>
 
-    <string name="appearance_theme">Tema</string>
-    <string name="appearance_theme_desc">Koyu veya açık tema arasında seçim yapın</string>
+    <string name="theme">Tema</string>
+    <string name="theme_desc">Koyu veya açık tema arasında seçim yapın</string>
 
-    <string name="appearance_material_you">Material You</string>
-    <string name="appearance_material_you_desc">Uygulamada içinde duvar kağıdı renklerini kullanın</string>
-    <string name="appearance_material_you_desc_unsupported">Bu seçenek Android 12 altında desteklenmiyor</string>
+    <string name="material_you">Material You</string>
+    <string name="material_you_desc">Uygulamada içinde duvar kağıdı renklerini kullanın</string>
+    <string name="material_you_desc_unsupported">Bu seçenek Android 12 altında desteklenmiyor</string>
 
+    <string name="wallpaper_colors">Duvar kağıdı renklerini kullan</string>
     <string name="languages">Diller</string>
     <string name="languages_desc">Uygulama dilini değiştirin</string>
 

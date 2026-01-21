@@ -11,12 +11,15 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed class SettingsEvent {
+    data class UpdateSettings(val settingsState: SettingsState) : SettingsEvent()
+}
+
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     getSettingsStateUseCase: GetSettingsStateUseCase,
     private val updateSettingsStateUseCase: UpdateSettingsStateUseCase
 ) : ViewModel() {
-
     val state = getSettingsStateUseCase()
         .stateIn(
             viewModelScope,
@@ -33,8 +36,4 @@ class SettingsViewModel @Inject constructor(
             }
         }
     }
-}
-
-sealed class SettingsEvent {
-    data class UpdateSettings(val settingsState: SettingsState) : SettingsEvent()
 }
