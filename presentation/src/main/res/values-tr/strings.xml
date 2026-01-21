@@ -12,9 +12,6 @@
 
     <string name="settings">Ayarlar</string>
 
-    <string name="general_settings">Genel Ayarlar</string>
-    <string name="general_settings_desc">Genel Ayarlar</string>
-
     <string name="appearance">Görünüm</string>
     <string name="appearance_desc">Tema, Material You</string>
 
@@ -22,11 +19,11 @@
     <string name="theme_desc">Koyu veya açık tema arasında seçim yapın</string>
 
     <string name="material_you">Material You</string>
-    <string name="material_you_desc">Uygulamada içinde duvar kağıdı renklerini kullanın</string>
+    <string name="material_you_desc">Uygulama renklerini kişiselleştirin</string>
     <string name="material_you_desc_unsupported">Bu seçenek Android 12 altında desteklenmiyor</string>
 
     <string name="wallpaper_colors">Duvar kağıdı renklerini kullan</string>
-    <string name="languages">Diller</string>
+    <string name="languages">Dil</string>
     <string name="languages_desc">Uygulama dilini değiştirin</string>
 
     <string name="about">Hakkında</string>
@@ -36,9 +33,7 @@
     <string name="about_follow_on_desc">Geliştiriciyi %1$s\'da takip et</string>
 
     <string name="about_view_on">%1$s\'da gör</string>
-    <string name="about_view_on_desc">projeyi %1$s\'da gör</string>
+    <string name="about_view_on_desc">Projeyi %1$s\'da gör</string>
 
-    <string name="licenses">Açık Kaynak Lisansları</string>
-    <string name="licenses_desc">Bu uygulamanın yapımında kullanılan kütüphaneler</string>
     <string name="home">Ana sayfa</string>
 </resources>

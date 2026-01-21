@@ -6,10 +6,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.RadioButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
+import dev.cankolay.app.android.presentation.R
 import dev.cankolay.app.android.presentation.composable.CardStackList
 import dev.cankolay.app.android.presentation.composable.CardStackListItem
 import dev.cankolay.app.android.presentation.composable.layout.AppLayout
@@ -19,10 +19,8 @@ import dev.cankolay.app.android.presentation.navigation.Route
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LanguagesView() {
-    val context = LocalContext.current
-
     AppLayout(route = Route.Languages) {
-        val languages = arrayOf("en", "tr")
+        val languages = mapOf("en" to R.string.en, "tr" to R.string.tr)
         val currentLanguage =
             AppCompatDelegate.getApplicationLocales().toLanguageTags().ifEmpty { "en" }
 
@@ -35,26 +33,21 @@ fun LanguagesView() {
                     items = languages.map { language ->
                         val onClick = {
                             AppCompatDelegate.setApplicationLocales(
-                                LocaleListCompat.forLanguageTags(language),
+                                LocaleListCompat.forLanguageTags(language.key),
                             )
                         }
 
                         CardStackListItem(
                             title =
                                 stringResource(
-                                    id =
-                                        context.resources.getIdentifier(
-                                            language,
-                                            "string",
-                                            context.packageName,
-                                        ),
+                                    id = language.value,
                                 ),
                             onClick = onClick,
                             leadingContent = {
                                 RadioButton(
                                     selected =
                                         currentLanguage.contains(
-                                            other = language,
+                                            other = language.key,
                                             ignoreCase = true,
                                         ),
                                     onClick = onClick,

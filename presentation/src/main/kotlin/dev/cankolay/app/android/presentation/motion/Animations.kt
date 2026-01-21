@@ -13,11 +13,11 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 
-const val initialOffset = 0.05f
+const val initialOffset = 0.10f
 
 object MotionConstants {
-    const val ENTER_DURATION = 600
-    const val EXIT_DURATION = 500
+    const val ENTER_DURATION = 400
+    const val EXIT_DURATION = 300
 }
 
 private val Int.ForOutgoing
@@ -28,7 +28,7 @@ private val Int.ForIncoming
 
 fun slideIn(
     initialOffsetX: (fullWidth: Int) -> Int,
-    durationMillis: Int = 400,
+    durationMillis: Int = MotionConstants.ENTER_DURATION,
 ): EnterTransition =
     slideInHorizontally(
         animationSpec = tween(
@@ -48,7 +48,7 @@ fun slideIn(
 
 fun slideOut(
     targetOffsetX: (fullWidth: Int) -> Int,
-    durationMillis: Int = 300,
+    durationMillis: Int = MotionConstants.EXIT_DURATION,
 ): ExitTransition =
     slideOutHorizontally(
         animationSpec = tween(

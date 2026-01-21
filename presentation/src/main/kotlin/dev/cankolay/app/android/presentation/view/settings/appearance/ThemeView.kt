@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -27,8 +26,6 @@ import dev.cankolay.app.android.presentation.viewmodel.SettingsViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ThemeView(settingsViewModel: SettingsViewModel = hiltViewModel()) {
-    val context = LocalContext.current
-
     AppLayout(route = Route.Theme) {
         val state by settingsViewModel.state.collectAsState()
 
@@ -53,12 +50,11 @@ fun ThemeView(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                             CardStackListItem(
                                 title =
                                     stringResource(
-                                        id =
-                                            context.resources.getIdentifier(
-                                                theme.type,
-                                                "string",
-                                                context.packageName,
-                                            ),
+                                        id = when (theme) {
+                                            Theme.SYSTEM -> R.string.system
+                                            Theme.DARK -> R.string.dark
+                                            Theme.LIGHT -> R.string.light
+                                        }
                                     ),
                                 onClick = onClick,
                                 leadingContent = {
