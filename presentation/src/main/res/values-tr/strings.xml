@@ -35,5 +35,7 @@
     <string name="about_view_on">%1$s\'da gör</string>
     <string name="about_view_on_desc">Projeyi %1$s\'da gör</string>
 
+    <string name="api_error">Veriler alınırken bir hata oluştu.</string>
     <string name="home">Ana sayfa</string>
+    <string name="try_again">Tekrar deneyin</string>
 </resources>
