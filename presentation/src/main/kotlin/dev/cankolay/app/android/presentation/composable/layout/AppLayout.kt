@@ -15,7 +15,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import dev.cankolay.app.android.presentation.navigation.Route
+import dev.cankolay.app.android.presentation.navigation.route.Route
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

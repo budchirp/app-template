@@ -6,7 +6,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
-import dev.cankolay.app.android.presentation.navigation.Route
+import dev.cankolay.app.android.presentation.navigation.route.Route
 
 val LocalNavBackStack =
     staticCompositionLocalOf<NavBackStack<NavKey>> { error("Not provided") }

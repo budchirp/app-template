@@ -1,4 +1,4 @@
-package dev.cankolay.app.android.presentation.navigation
+package dev.cankolay.app.android.presentation.motion
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -6,10 +6,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.navigation3.ui.NavDisplay
-import dev.cankolay.app.android.presentation.motion.MotionConstants
-import dev.cankolay.app.android.presentation.motion.initialOffset
-import dev.cankolay.app.android.presentation.motion.slideIn
-import dev.cankolay.app.android.presentation.motion.slideOut
 
 enum class TransitionType {
     SLIDE,

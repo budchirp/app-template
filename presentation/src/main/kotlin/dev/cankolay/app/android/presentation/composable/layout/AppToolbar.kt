@@ -19,9 +19,9 @@ import androidx.compose.ui.zIndex
 import dev.cankolay.app.android.presentation.composable.Icon
 import dev.cankolay.app.android.presentation.composition.LocalNavBackStack
 import dev.cankolay.app.android.presentation.motion.slideInY
-import dev.cankolay.app.android.presentation.navigation.Route
-import dev.cankolay.app.android.presentation.navigation.RouteDetail
-import dev.cankolay.app.android.presentation.navigation.getDetails
+import dev.cankolay.app.android.presentation.navigation.route.Route
+import dev.cankolay.app.android.presentation.navigation.route.RouteDetail
+import dev.cankolay.app.android.presentation.navigation.route.getDetails
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable

@@ -6,6 +6,9 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import dev.cankolay.app.android.presentation.composition.LocalNavBackStack
+import dev.cankolay.app.android.presentation.motion.TransitionType
+import dev.cankolay.app.android.presentation.motion.navigationTransition
+import dev.cankolay.app.android.presentation.navigation.route.Route
 import dev.cankolay.app.android.presentation.view.HomeView
 import dev.cankolay.app.android.presentation.view.settings.AboutView
 import dev.cankolay.app.android.presentation.view.settings.LanguagesView

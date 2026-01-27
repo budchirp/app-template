@@ -1,7 +1,6 @@
 package dev.cankolay.app.android.presentation.view.settings
 
 import android.content.Intent
-import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import coil3.compose.AsyncImage
 import dev.cankolay.app.android.presentation.R
 import dev.cankolay.app.android.presentation.composable.CardStack
@@ -30,7 +30,7 @@ import dev.cankolay.app.android.presentation.composable.Icon
 import dev.cankolay.app.android.presentation.composable.ListItem
 import dev.cankolay.app.android.presentation.composable.layout.AppLayout
 import dev.cankolay.app.android.presentation.composable.layout.AppLazyColumn
-import dev.cankolay.app.android.presentation.navigation.Route
+import dev.cankolay.app.android.presentation.navigation.route.Route
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -103,7 +103,7 @@ fun AppCard() {
                         "Github",
                     ),
                 onClick = {
-                    activityLauncher.launch(Intent(Intent.ACTION_VIEW, Uri.parse(appGithubUrl)))
+                    activityLauncher.launch(Intent(Intent.ACTION_VIEW, appGithubUrl.toUri()))
                 },
                 leadingContent = {
                     Icon(icon = painterResource(id = R.drawable.ic_github))
@@ -134,7 +134,7 @@ fun DevCard() {
                         activityLauncher.launch(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse(devWebsiteUrl)
+                                devWebsiteUrl.toUri()
                             )
                         )
                     },
@@ -155,7 +155,7 @@ fun DevCard() {
                         activityLauncher.launch(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse(devGithubUrl)
+                                devGithubUrl.toUri()
                             )
                         )
                     },

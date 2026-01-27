@@ -1,4 +1,4 @@
-package dev.cankolay.app.android.domain.usecase.application
+package dev.cankolay.app.android.domain.usecase.application.settings
 
 import dev.cankolay.app.android.domain.model.application.SettingsState
 import dev.cankolay.app.android.domain.repository.application.SettingsStateRepository

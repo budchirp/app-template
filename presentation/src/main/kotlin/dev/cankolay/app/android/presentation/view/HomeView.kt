@@ -13,28 +13,29 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.cankolay.app.android.domain.model.api.ApiResult
 import dev.cankolay.app.android.domain.model.api.post.Post
+import dev.cankolay.app.android.presentation.R
 import dev.cankolay.app.android.presentation.composable.CardStackList
 import dev.cankolay.app.android.presentation.composable.CardStackListItem
 import dev.cankolay.app.android.presentation.composable.PullToRefreshLazyColumn
 import dev.cankolay.app.android.presentation.composable.layout.AppLayout
-import dev.cankolay.app.android.presentation.navigation.Route
+import dev.cankolay.app.android.presentation.navigation.route.Route
 import dev.cankolay.app.android.presentation.viewmodel.PostEvent
 import dev.cankolay.app.android.presentation.viewmodel.PostViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun HomeView(postViewModel: PostViewModel = hiltViewModel()) {
+    val posts by postViewModel.posts.collectAsState()
     LaunchedEffect(key1 = Unit) {
         postViewModel.onEvent(event = PostEvent.FetchPosts)
     }
 
     AppLayout(route = Route.Home) {
-        val posts by postViewModel.posts.collectAsState()
-
         PullToRefreshLazyColumn(
             isLoading = posts is ApiResult.Loading,
             onRefresh = { postViewModel.onEvent(event = PostEvent.FetchPosts) },
@@ -61,13 +62,13 @@ fun HomeView(postViewModel: PostViewModel = hiltViewModel()) {
                             verticalArrangement = Arrangement.spacedBy(space = 16.dp)
                         ) {
                             Text(
-                                text = "An error occurred while fetching the API",
+                                text = stringResource(id = R.string.api_error),
                                 style = MaterialTheme.typography.titleLarge,
                                 color = MaterialTheme.colorScheme.error,
                             )
 
                             Button(onClick = { postViewModel.onEvent(event = PostEvent.FetchPosts) }) {
-                                Text(text = "Try again")
+                                Text(text = stringResource(id = R.string.try_again))
                             }
                         }
                     }

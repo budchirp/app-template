@@ -18,8 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextOverflow
 import dev.cankolay.app.android.presentation.composable.Icon
 import dev.cankolay.app.android.presentation.composition.LocalNavBackStack
-import dev.cankolay.app.android.presentation.navigation.Route
-import dev.cankolay.app.android.presentation.navigation.getDetails
+import dev.cankolay.app.android.presentation.navigation.route.Route
+import dev.cankolay.app.android.presentation.navigation.route.getDetails
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

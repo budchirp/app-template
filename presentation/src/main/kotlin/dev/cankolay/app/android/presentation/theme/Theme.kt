@@ -10,7 +10,6 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MotionScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.colorResource
@@ -22,9 +21,6 @@ import dev.cankolay.app.android.domain.model.application.MaterialYou
 import dev.cankolay.app.android.domain.model.application.SettingsState
 import dev.cankolay.app.android.domain.model.application.Theme
 
-val APP_COLOR = Color(
-    color = 0xFF2563EB
-)
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -45,7 +41,7 @@ fun AppTheme(
 
     val wallpaperColor = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) colorResource(
         id = android.R.color.system_accent1_500
-    ) else APP_COLOR
+    ) else Colors.App
 
     MaterialExpressiveTheme(
         colorScheme = rememberDynamicColorScheme(
@@ -55,7 +51,7 @@ fun AppTheme(
                 is MaterialYou.WALLPAPER -> wallpaperColor
                 is MaterialYou.SEED -> settingsState.materialYou.color
 
-                is MaterialYou.OFF -> APP_COLOR
+                is MaterialYou.OFF -> Colors.App
             },
             style = PaletteStyle.Expressive,
             specVersion = ColorSpec.SpecVersion.SPEC_2025

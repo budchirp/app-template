@@ -14,7 +14,7 @@ import dev.cankolay.app.android.presentation.composable.CardStackList
 import dev.cankolay.app.android.presentation.composable.CardStackListItem
 import dev.cankolay.app.android.presentation.composable.layout.AppLayout
 import dev.cankolay.app.android.presentation.composable.layout.AppLazyColumn
-import dev.cankolay.app.android.presentation.navigation.Route
+import dev.cankolay.app.android.presentation.navigation.route.Route
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package dev.cankolay.app.android.presentation.navigation
+package dev.cankolay.app.android.presentation.navigation.route
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Colorize

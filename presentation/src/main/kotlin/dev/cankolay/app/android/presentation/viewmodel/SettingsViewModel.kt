@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.cankolay.app.android.domain.model.application.SettingsState
-import dev.cankolay.app.android.domain.usecase.application.GetSettingsStateUseCase
-import dev.cankolay.app.android.domain.usecase.application.UpdateSettingsStateUseCase
+import dev.cankolay.app.android.domain.usecase.application.settings.GetSettingsStateUseCase
+import dev.cankolay.app.android.domain.usecase.application.settings.UpdateSettingsStateUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch

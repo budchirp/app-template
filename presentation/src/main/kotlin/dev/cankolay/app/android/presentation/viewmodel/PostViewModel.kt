@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.cankolay.app.android.domain.model.api.ApiResult
 import dev.cankolay.app.android.domain.model.api.post.Post
-import dev.cankolay.app.android.domain.usecase.post.GetAllPostsUseCase
+import dev.cankolay.app.android.domain.usecase.api.post.GetAllPostsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -20,8 +20,8 @@ sealed class PostEvent {
 class PostViewModel @Inject constructor(
     private val getAllPostsUseCase: GetAllPostsUseCase,
 ) : ViewModel() {
-    private val postsFlow = MutableStateFlow<ApiResult<List<Post>>>(value = ApiResult.Loading)
-    val posts = postsFlow.stateIn(
+    private val _posts = MutableStateFlow<ApiResult<List<Post>>>(value = ApiResult.Loading)
+    val posts = _posts.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
         initialValue = ApiResult.Loading
@@ -31,7 +31,7 @@ class PostViewModel @Inject constructor(
         viewModelScope.launch {
             when (event) {
                 is PostEvent.FetchPosts -> {
-                    postsFlow.value = getAllPostsUseCase()
+                    _posts.value = getAllPostsUseCase()
                 }
             }
         }

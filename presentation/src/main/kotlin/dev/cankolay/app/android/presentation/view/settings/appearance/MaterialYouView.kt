@@ -47,7 +47,7 @@ import dev.cankolay.app.android.presentation.composable.Icon
 import dev.cankolay.app.android.presentation.composable.ListItem
 import dev.cankolay.app.android.presentation.composable.layout.AppLayout
 import dev.cankolay.app.android.presentation.composable.layout.AppLazyColumn
-import dev.cankolay.app.android.presentation.navigation.Route
+import dev.cankolay.app.android.presentation.navigation.route.Route
 import dev.cankolay.app.android.presentation.theme.isDark
 import dev.cankolay.app.android.presentation.viewmodel.SettingsEvent
 import dev.cankolay.app.android.presentation.viewmodel.SettingsViewModel

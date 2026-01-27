@@ -1,4 +1,4 @@
-package dev.cankolay.app.android.domain.usecase.post
+package dev.cankolay.app.android.domain.usecase.api.post
 
 import dev.cankolay.app.android.domain.repository.api.PostRepository
 import javax.inject.Inject
